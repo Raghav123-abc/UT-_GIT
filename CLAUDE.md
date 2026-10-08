@@ -13,7 +13,7 @@ Applies to every metadata, configuration, flow, field, object, validation rule,
 Apex, LWC, integration, deployment or permission change.
 
 1. Before deploying, show the change and run a check-only deploy (`--dry-run`). Deploy only after the user confirms.
-2. Add one new row per change (per deployment) to `Documentation/04_Change_Records/Change_Log.xlsx`, sheet `Change_Log`. Fill all 15 columns. Never edit or delete existing rows; correct a past entry by adding a new row.
+2. Add one new row per change (per deployment) to `Documentation/04_Change_Records/Change_Log.xlsx`, sheet `Change_Log`. Fill all 14 columns (there is no Changed By column; it was removed at the user's request). Never edit or delete existing rows; correct a past entry by adding a new row.
 3. Create or update supporting documentation when needed: a dated change record in `Documentation/04_Change_Records/` (`YYYY-MM-DD_<Name>.txt`), and the matching folder in `Documentation/07_Technical_Documents/`.
 4. Commit all modified files with a meaningful message.
 5. Show the changes for review, then push to GitHub only after the user confirms.
