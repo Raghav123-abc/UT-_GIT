@@ -12,3 +12,4 @@ Rules for maintaining the TVM Project Repository.
 8. **Organize entries by date.** Name entries `YYYY-MM-DD_<short-name>.md`.
 9. **Create meaningful commit messages.** Say what changed and why, e.g. `Add Test_Address__c field on Contact (REQ: address capture)`.
 10. **Never overwrite historical records.** Add new entries or append to existing ones; never edit or delete past entries.
+11. **Log every Salesforce change in the master change log.** Add one new row per change to `Documentation/04_Change_Records/Change_Log.xlsx`, commit it, show the changes for review, and push to GitHub only after confirmation. Never edit or delete existing rows.
