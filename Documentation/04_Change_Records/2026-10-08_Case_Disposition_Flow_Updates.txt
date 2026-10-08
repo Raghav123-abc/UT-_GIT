@@ -1,0 +1,75 @@
+CHANGE RECORD: Case Disposition Flow Updates
+============================================
+
+Date:            2026-10-08
+Environment:     Sandbox
+Org alias:       FullSando (https://teamvelocity--fullsando.sandbox.my.salesforce.com)
+Component Name:  Cases disposition (Flow, API name: Cases_disposition)
+Component Type:  Record-Triggered Flow (Case, after save, on update)
+Deployed with:   Salesforce CLI, signed in as Sandip Patel's user
+
+Reason:
+  To align the Sandbox Case Disposition Flow with the Production configuration.
+
+
+CHANGE SUMMARY
+--------------
+Added three entry conditions on the Case Status field (Status_Filtered__c):
+  1. Added filter: Case Status Equals 'New'
+  2. Added filter: Case Status Equals 'Assigned'
+  3. Added filter: Case Status Equals 'In Progress'
+
+The three new filters are joined with OR, because a case has only one
+status at a time. The existing five conditions are unchanged.
+
+
+BEFORE CHANGE (Flow version 4, active until 2026-10-08)
+-------------------------------------------------------
+Entry conditions:
+  1. Origin               Equals       Email
+  2. Case Subcategory     Is Changed   True
+  3. Case Subcategory     Is Null      False
+  4. Case Request         Is Changed   True
+  5. Case Request         Is Null      False
+
+Condition logic: All conditions are met (AND)
+
+
+AFTER CHANGE (Flow version 6, active from 2026-10-08)
+-----------------------------------------------------
+Entry conditions:
+  1. Origin               Equals       Email
+  2. Case Subcategory     Is Changed   True
+  3. Case Subcategory     Is Null      False
+  4. Case Request         Is Changed   True
+  5. Case Request         Is Null      False
+  6. Case Status          Equals       New
+  7. Case Status          Equals       Assigned
+  8. Case Status          Equals       In Progress
+
+Condition logic: 1 AND 2 AND 3 AND 4 AND 5 AND (6 OR 7 OR 8)
+
+
+DEPLOYMENT DETAILS
+------------------
+  Version 5  Deployment ID 0AfVa00000Df2SzKAJ  2026-10-08
+             Filters added on the standard Status field by mistake.
+             Superseded by version 6. Now obsolete.
+  Version 6  Deployment ID 0AfVa00000Df3LqKAJ  2026-10-08
+             Filters corrected to use the Case Status field
+             (Status_Filtered__c). Active.
+
+Flow logic after the entry conditions (priority check and routing to the
+High, Medium and Low Priority Case queues) is unchanged.
+
+
+ROLLBACK
+--------
+Setup > Flows > Cases disposition > View Versions > activate version 4.
+
+
+TESTING
+-------
+Not yet tested. To test, update an email case with Case Status New,
+Assigned or In Progress and change its Case Subcategory and Case Request.
+The case should be routed to the queue for its priority.
